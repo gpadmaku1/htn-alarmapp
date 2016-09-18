@@ -20,6 +20,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
 {
+    private Alarm alarm;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -76,4 +77,9 @@ public class MainActivity extends AppCompatActivity
 		}
 
 	}
+
+
+    public void setAlarm(View view) {
+        
+    }
 }
