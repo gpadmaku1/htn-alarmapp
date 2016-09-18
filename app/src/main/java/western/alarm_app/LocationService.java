@@ -29,7 +29,6 @@ public class LocationService extends Service implements LocationListener, Google
 				.addOnConnectionFailedListener(this)
 				.addApi(LocationServices.API)
 				.build();
-
 		// TODO: get destination from file
 	}
 

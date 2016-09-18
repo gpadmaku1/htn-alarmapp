@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import android.view.Window;
@@ -21,8 +23,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements LocationListener
 {
+	private LocationRequest locationRequest;
+	private GoogleApiClient googleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,13 +41,6 @@ public class MainActivity extends AppCompatActivity
 //set content view AFTER ABOVE sequence (to avoid crash)
         this.setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
-    }
-
-	public void setDestination(View view)
-	{
-		GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
-				.addApi(LocationServices.API)
-				.build();
 
 		if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
 
@@ -50,39 +48,70 @@ public class MainActivity extends AppCompatActivity
 					LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
 		}
 
+		locationRequest = new LocationRequest();
+		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+		// TODO: get updates every 5 seconds; check if that's  a good number
+		locationRequest.setInterval(5000);
+
+		googleApiClient = new GoogleApiClient.Builder(this)
+				.addApi(LocationServices.API)
+				.build();
+    }
+
+	public void setDestination(View view)
+	{
 		try
 		{
-			Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-			String filename = "destination.txt";
-			StringBuilder builder = new StringBuilder();
-
-			double lat = location.getLatitude();
-			double lng = location.getLongitude();
-
-			Toast.makeText(this, "Latitude is " + lat + "Longitude is " + lng, Toast.LENGTH_SHORT).show();
-
-			builder.append(location.getLatitude());
-			builder.append("\n");
-			builder.append(location.getLongitude());
-
-			String fileContents = builder.toString();
-
-			FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-			outputStream.write(fileContents.getBytes());
-			outputStream.close();
+			LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
 		}
 		catch(SecurityException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location)
+	{
+		String filename = "destination.txt";
+		StringBuilder builder = new StringBuilder();
+
+		double lat = location.getLatitude();
+		double lng = location.getLongitude();
+
+		Toast.makeText(this, "Latitude is " + lat + "Longitude is " + lng, Toast.LENGTH_SHORT).show();
+
+		builder.append(location.getLatitude());
+		builder.append("\n");
+		builder.append(location.getLongitude());
+
+		String fileContents = builder.toString();
+
+		FileOutputStream outputStream = null;
+		try
+		{
+			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+		}
 		catch(FileNotFoundException e)
 		{
 			e.printStackTrace();
+		}
+		try
+		{
+			outputStream.write(fileContents.getBytes());
+			outputStream.close();
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+
+		Toast.makeText(this, "Destination recorded", Toast.LENGTH_LONG).show();
+
+		// disable location updates because we only need to record it once
+		LocationServices.FusedLocationApi.removeLocationUpdates(
+				googleApiClient, this);
 
 	}
 }
