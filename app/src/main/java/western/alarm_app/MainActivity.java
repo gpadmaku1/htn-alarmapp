@@ -66,12 +66,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 	{
 		try
 		{
+			//Toast.makeText(this, "setting callback", Toast.LENGTH_SHORT).show();
 			LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+			//Toast.makeText(this, "callback set", Toast.LENGTH_SHORT).show();
 		}
 		catch(SecurityException e)
 		{
+			Log.d("SecurityException", "setDestination is failing");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		googleApiClient.connect();
+	}
+
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		googleApiClient.disconnect();
 	}
 
 	@Override
@@ -79,6 +96,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 	{
 		String filename = "destination.txt";
 		StringBuilder builder = new StringBuilder();
+
+		if(location == null)
+		{
+			Toast.makeText(this, "location is null", Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			Toast.makeText(this, "location is not null", Toast.LENGTH_LONG).show();
+		}
+
 
 		double lat = location.getLatitude();
 		double lng = location.getLongitude();
