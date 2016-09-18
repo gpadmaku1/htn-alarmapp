@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,17 +18,19 @@ import com.google.android.gms.location.LocationServices;
 
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements LocationListener
 {
 	private LocationRequest locationRequest;
 	private GoogleApiClient googleApiClient;
-
+    private Alarm alarm;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -114,4 +117,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 				googleApiClient, this);
 
 	}
+
+    public void setAlarm(View view) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        calendar.set(Calendar.HOUR,timePicker.getHour());
+        calendar.set(Calendar.MINUTE,timePicker.getMinute());
+        Alarm.executionTime = calendar.getTimeInMillis();
+        alarm = new Alarm(this);
+        alarm.setAlarm(this);
+        Log.d("time",String.valueOf(calendar.getTimeInMillis()));
+
+
+    }
 }
