@@ -1,7 +1,11 @@
 
 package western.alarm_app;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +15,11 @@ import com.google.android.gms.location.LocationServices;
 
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -35,7 +44,45 @@ public class MainActivity extends AppCompatActivity
 				.addApi(LocationServices.API)
 				.build();
 
-		//Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+		if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+
+			ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+					LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
+		}
+
+		try
+		{
+			Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+			String filename = "destination.txt";
+			StringBuilder builder = new StringBuilder();
+
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+
+			Toast.makeText(this, "Latitude is " + lat + "Longitude is " + lng, Toast.LENGTH_SHORT).show();
+
+			builder.append(location.getLatitude());
+			builder.append("\n");
+			builder.append(location.getLongitude());
+
+			String fileContents = builder.toString();
+
+			FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			outputStream.write(fileContents.getBytes());
+			outputStream.close();
+		}
+		catch(SecurityException e)
+		{
+			e.printStackTrace();
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 
 	}
 }
