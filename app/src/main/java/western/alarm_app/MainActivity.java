@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        //code to get rid of title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.setContentView(R.layout.activity_main);
 		setContentView(R.layout.activity_main);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
