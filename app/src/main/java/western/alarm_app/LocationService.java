@@ -42,6 +42,7 @@ public class LocationService extends Service
 	{
 		super.onCreate();
 		alarm = new Alarm(this);
+		locationListener = new MyLocationListener(LocationManager.GPS_PROVIDER);
 		initializeLocationManager();
 
 		try
