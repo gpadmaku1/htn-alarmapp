@@ -8,7 +8,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
@@ -58,9 +57,7 @@
         android:id="@+id/richard_spinner"
         android:layout_below="@+id/start_alarm"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:entries="@array/dawkins_sounds"
-        android:prompt="@string/country_prompt" />
+        android:layout_alignParentStart="true" />
 
 
 
