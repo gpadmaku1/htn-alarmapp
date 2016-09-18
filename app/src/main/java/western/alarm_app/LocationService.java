@@ -17,6 +17,8 @@ public class LocationService extends Service implements LocationListener, Google
 {
 	private Alarm alarm;
 
+	public static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 1;
+
 	private GoogleApiClient googleApiClient;
 	private Location destination;
 
@@ -59,6 +61,6 @@ public class LocationService extends Service implements LocationListener, Google
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
 	{
-		
+
 	}
 }
