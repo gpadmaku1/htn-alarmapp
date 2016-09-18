@@ -15,8 +15,10 @@ import android.os.PowerManager;
  */
 public class Alarm extends BroadcastReceiver
 {
+	public static long executionTime = 0;
+
 	private Ringtone ringtone;
-	Context context;
+	private Context context;
 
 	public Alarm(Context context)
 	{
@@ -50,12 +52,12 @@ public class Alarm extends BroadcastReceiver
 	 * @param context
 	 * @param timeMillis Time to ring at
 	 */
-	public void setAlarm(Context context, long timeMillis)
+	public void setAlarm(Context context)
 	{
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		Intent intent = new Intent(context, Alarm.class);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, timeMillis, pendingIntent);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, executionTime, pendingIntent);
 	}
 
 	/**

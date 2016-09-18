@@ -48,7 +48,8 @@
         android:id="@+id/setLocationButton"
         android:layout_alignTop="@+id/setAlarmButton"
         android:layout_alignRight="@+id/timePicker"
-        android:layout_alignEnd="@+id/timePicker" />
+        android:layout_alignEnd="@+id/timePicker"
+        android:onClick="setDestination"/>
 
     <TimePicker
         android:layout_width="wrap_content"
