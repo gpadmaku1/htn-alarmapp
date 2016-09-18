@@ -15,11 +15,13 @@ import com.google.android.gms.location.LocationServices;
 
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -52,7 +54,12 @@ public class MainActivity extends AppCompatActivity
 
 		try
 		{
+            Toast.makeText(this, "got coordinates", Toast.LENGTH_LONG).show();
+
 			Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+
+
+
 			String filename = "destination.txt";
 			StringBuilder builder = new StringBuilder();
 
@@ -85,4 +92,15 @@ public class MainActivity extends AppCompatActivity
 		}
 
 	}
+
+    public void setAlarm(View view) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        calendar.set(Calendar.HOUR,timePicker.getHour());
+        calendar.set(Calendar.MINUTE,timePicker.getMinute());
+        Alarm.executionTime = calendar.getTimeInMillis();
+
+    }
 }
