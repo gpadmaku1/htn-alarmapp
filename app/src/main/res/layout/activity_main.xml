@@ -22,7 +22,8 @@
         android:layout_marginTop="26dp"
         android:layout_alignRight="@+id/unsetAlarmButton"
         android:layout_alignEnd="@+id/unsetAlarmButton"
-        android:contextClickable="false" />
+        android:contextClickable="false"
+        android:onClick="setAlarm" />
 
        <Button
         android:layout_width="wrap_content"
