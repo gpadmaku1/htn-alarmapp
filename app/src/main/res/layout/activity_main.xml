@@ -34,7 +34,8 @@
            android:layout_below="@+id/setAlarmButton"
            android:layout_alignLeft="@+id/setAlarmButton"
            android:layout_alignStart="@+id/setAlarmButton"
-           android:backgroundTint="@android:color/white"/>
+           android:backgroundTint="@android:color/white"
+           android:onClick="unsetAlarm"/>
 
 
     <StackView

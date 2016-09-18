@@ -146,4 +146,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 
 
     }
+
+	public void unsetAlarm(View view)
+	{
+		if(alarm != null)
+		{
+			alarm.cancelAlarm(this);
+		}
+	}
 }
