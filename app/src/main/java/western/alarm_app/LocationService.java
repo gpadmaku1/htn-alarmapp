@@ -40,7 +40,9 @@ public class LocationService extends Service
 	@Override
 	public void onCreate()
 	{
+		super.onCreate();
 		alarm = new Alarm(this);
+		initializeLocationManager();
 
 		try
 		{
@@ -51,10 +53,6 @@ public class LocationService extends Service
 			destinationLatitude = Double.parseDouble(bufferedReader.readLine());
 			destinationLongitude = Double.parseDouble(bufferedReader.readLine());
 
-		}
-		catch(FileNotFoundException e)
-		{
-			e.printStackTrace();
 		}
 		catch(IOException e)
 		{
@@ -120,6 +118,7 @@ public class LocationService extends Service
 		try
 		{
 			locationManager.removeUpdates((android.location.LocationListener) locationListener);
+			alarm.disableAlarm();
 		}
 		catch(SecurityException e)
 		{
@@ -139,6 +138,7 @@ public class LocationService extends Service
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		super.onStartCommand(intent, flags, startId);
+		alarm.setAlarm(this);
 
 		return START_STICKY;
 	}
