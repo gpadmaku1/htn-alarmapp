@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -53,6 +54,8 @@ public class LocationService extends Service
 
 			destinationLatitude = Double.parseDouble(bufferedReader.readLine());
 			destinationLongitude = Double.parseDouble(bufferedReader.readLine());
+
+			Log.d("LocationService", "latitude " + destinationLatitude + " longitude " + destinationLongitude);
 
 		}
 		catch(IOException e)
