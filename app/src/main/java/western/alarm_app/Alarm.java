@@ -45,6 +45,11 @@ public class Alarm extends BroadcastReceiver
 		wakeLock.release();
 	}
 
+	/**
+	 * Sets alarm to ring at specified time.
+	 * @param context
+	 * @param timeMillis Time to ring at
+	 */
 	public void setAlarm(Context context, long timeMillis)
 	{
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
