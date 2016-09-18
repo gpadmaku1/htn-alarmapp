@@ -29,12 +29,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
            android:drawableLeft="@mipmap/cancel"
-        android:text="Unset Alarm"
+        android:text="Cancel Alarm"
         android:id="@+id/unsetAlarmButton"
            android:layout_below="@+id/setAlarmButton"
            android:layout_alignLeft="@+id/setAlarmButton"
            android:layout_alignStart="@+id/setAlarmButton"
-           android:backgroundTint="@android:color/white"/>
+           android:backgroundTint="@android:color/white"
+           android:onClick="unsetAlarm"/>
 
 
     <StackView

@@ -25,7 +25,8 @@
         <service
             android:name=".LocationService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:process=":location_service">
         </service>
     </application>
 

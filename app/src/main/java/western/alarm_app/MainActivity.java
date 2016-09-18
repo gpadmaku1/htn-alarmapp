@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener
         TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         calendar.set(Calendar.HOUR,timePicker.getHour());
         calendar.set(Calendar.MINUTE,timePicker.getMinute());
+		calendar.set(Calendar.SECOND, 0);
         Alarm.executionTime = calendar.getTimeInMillis();
         alarm = new Alarm(this);
         alarm.setAlarm(this);
@@ -145,4 +146,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener
 
 
     }
+
+	public void unsetAlarm(View view)
+	{
+		if(alarm != null)
+		{
+			alarm.cancelAlarm(this);
+		}
+	}
 }
