@@ -11,29 +11,27 @@
     tools:context="western.alarm_app.MainActivity">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Set Alarm"
         android:id="@+id/setAlarmButton"
-        android:layout_below="@+id/timePicker"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp"
-        android:layout_alignRight="@+id/unsetAlarmButton"
-        android:layout_alignEnd="@+id/unsetAlarmButton"
         android:contextClickable="false"
-        android:onClick="setAlarm" />
+        android:onClick="setAlarm"
+        android:layout_below="@+id/setLocationButton"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@mipmap/set"/>
 
        <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+           android:drawableLeft="@mipmap/cancel"
         android:text="Unset Alarm"
         android:id="@+id/unsetAlarmButton"
            android:layout_below="@+id/setAlarmButton"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentStart="true" />
+           android:layout_alignLeft="@+id/setAlarmButton"
+           android:layout_alignStart="@+id/setAlarmButton" />
 
 
     <StackView
@@ -42,15 +40,17 @@
         android:id="@+id/stackView" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Set Location"
         android:id="@+id/setLocationButton"
-        android:layout_alignTop="@+id/setAlarmButton"
-        android:layout_alignRight="@+id/timePicker"
-        android:layout_alignEnd="@+id/timePicker"
-        android:onClick="setDestination"/>
+        android:drawableLeft="@mipmap/location"
+        android:onClick="setDestination"
+        android:layout_marginTop="43dp"
+        android:layout_below="@+id/timePicker"
+        android:layout_alignRight="@+id/unsetAlarmButton"
+        android:layout_alignEnd="@+id/unsetAlarmButton" />
 
     <TimePicker
         android:layout_width="wrap_content"
@@ -58,9 +58,9 @@
         android:id="@+id/timePicker"
         android:headerBackground="@android:color/holo_blue_dark"
         android:textAlignment="center"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/stackView"
-        android:layout_toEndOf="@+id/stackView" />
+        android:layout_below="@+id/stackView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
